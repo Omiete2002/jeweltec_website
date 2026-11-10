@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | Jeweltec Goldsmiths & Jewelers Ltd</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/images/brand/logo-badge.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= LOGIN SCREEN ================= -->
+<div class="admin-login" id="admin-login-screen">
+  <div class="admin-login-card">
+    <span class="sankofa-mark" data-sankofa style="width:48px;height:48px;margin:0 auto var(--space-sm); display:block;"></span>
+    <h2>Admin Login</h2>
+    <p class="lede" style="margin-bottom: var(--space-md);">This area is for Jeweltec staff only.</p>
+    <form id="admin-login-form">
+      <div class="form-field">
+        <label for="admin-password">Password</label>
+        <input type="password" id="admin-password" required autofocus>
+        <span class="form-error" id="admin-login-error"></span>
+      </div>
+      <button type="submit" class="btn btn--gold btn--block">Log In</button>
+    </form>
+    <p class="summary-note" style="margin-top: var(--space-md);">This is a simple front-end login for basic deterrence only — see the code comments in assets/js/admin.js before relying on it for real security.</p>
+    <p class="summary-note"><a href="index.html">← Back to website</a></p>
+  </div>
+</div>
+
+<!-- ================= DASHBOARD (hidden until logged in) ================= -->
+<div class="admin-shell" id="admin-dashboard" style="display:none;">
+
+  <aside class="admin-sidebar">
+    <div class="nav-brand">
+      <img src="assets/images/brand/logo-badge.png" alt="Jeweltec logo">
+      <span class="nav-brand-text"><strong>Jeweltec</strong><span>Admin</span></span>
+    </div>
+    <nav class="admin-nav">
+      <a href="#overview" class="is-active" data-panel-link="overview">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span class="label-text">Overview</span>
+      </a>
+      <a href="#products" data-panel-link="products">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l9 5v10l-9 5-9-5V7z"/></svg>
+        <span class="label-text">Products</span>
+      </a>
+      <a href="#add-product" data-panel-link="add-product">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+        <span class="label-text">Add Product</span>
+      </a>
+      <a href="#guide" data-panel-link="guide">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        <span class="label-text">Editing Guide</span>
+      </a>
+      <a href="index.html" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14L21 3"/></svg>
+        <span class="label-text">View Live Site</span>
+      </a>
+      <a href="#" id="admin-logout-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+        <span class="label-text">Log Out</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="admin-main">
+
+    <!-- ===== OVERVIEW PANEL ===== -->
+    <section class="admin-panel" id="panel-overview">
+      <div class="admin-topbar">
+        <div>
+          <h1 style="margin-bottom:0.2rem;">Overview</h1>
+          <p style="margin:0; color:var(--text-muted);">A quick snapshot of your product catalog.</p>
+        </div>
+      </div>
+
+      <div class="admin-callout">
+        <strong>Reminder:</strong> Jeweltec's website has no database. Every number below reflects what's currently written into <code>assets/js/products-data.js</code>. To change these figures, edit that file directly (see the Editing Guide tab).
+      </div>
+
+      <div class="admin-stats">
+        <div class="stat-card"><div class="stat-value" id="stat-total">0</div><div class="stat-label">Total Products</div></div>
+        <div class="stat-card"><div class="stat-value" id="stat-available">0</div><div class="stat-label">Available</div></div>
+        <div class="stat-card"><div class="stat-value" id="stat-sold">0</div><div class="stat-label">Sold</div></div>
+        <div class="stat-card"><div class="stat-value" id="stat-featured">0</div><div class="stat-label">Featured on Homepage</div></div>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th></th><th>Name</th><th>Category</th><th>Price</th><th>Status</th><th>Featured</th><th></th></tr></thead>
+          <tbody id="admin-product-tbody-preview"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== PRODUCTS PANEL ===== -->
+    <section class="admin-panel" id="panel-products" style="display:none;">
+      <div class="admin-topbar">
+        <div>
+          <h1 style="margin-bottom:0.2rem;">All Products</h1>
+          <p style="margin:0; color:var(--text-muted);">Full catalog as currently defined in products-data.js.</p>
+        </div>
+        <a href="#add-product" class="btn btn--gold btn--sm" data-panel-link="add-product">+ Add Product</a>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th></th><th>Name</th><th>Category</th><th>Price</th><th>Status</th><th>Featured</th><th></th></tr></thead>
+          <tbody id="admin-product-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== ADD PRODUCT PANEL ===== -->
+    <section class="admin-panel" id="panel-add-product" style="display:none;">
+      <div class="admin-topbar">
+        <div>
+          <h1 style="margin-bottom:0.2rem;">Add a New Product</h1>
+          <p style="margin:0; color:var(--text-muted);">Fill this in to generate the code snippet for your new product.</p>
+        </div>
+      </div>
+
+      <div class="admin-callout">
+        <strong>How this works:</strong> since the site has no database, this form doesn't save anything on its own. Fill it in, click "Generate Code", then copy the result and paste it into the <code>PRODUCTS</code> array in <code>assets/js/products-data.js</code> — right before the closing <code>];</code>. Don't forget to upload the product photo(s) into <code>assets/images/products/</code> first.
+      </div>
+
+      <form id="add-product-form">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="ap-name">Product Name</label>
+            <input type="text" id="ap-name" required placeholder="e.g. Heritage Gold Drop Earrings">
+          </div>
+          <div class="form-field">
+            <label for="ap-category">Category</label>
+            <input type="text" id="ap-category" required placeholder="e.g. WOKO">
+          </div>
+          <div class="form-field">
+            <label for="ap-price">Price (₦)</label>
+            <input type="number" id="ap-price" required placeholder="e.g. 95000">
+          </div>
+          <div class="form-field">
+            <label for="ap-image">Main Image Filename</label>
+            <input type="text" id="ap-image" required placeholder="e.g. product-19.jpg">
+          </div>
+          <div class="form-field">
+            <label for="ap-available">Availability</label>
+            <select id="ap-available"><option value="true">Available</option><option value="false">Sold</option></select>
+          </div>
+          <div class="form-field">
+            <label for="ap-featured">Feature on Homepage?</label>
+            <select id="ap-featured"><option value="false">No</option><option value="true">Yes</option></select>
+          </div>
+          <div class="form-field full">
+            <label for="ap-short">Short Description <span class="hint">(shown on product cards)</span></label>
+            <textarea id="ap-short" required></textarea>
+          </div>
+          <div class="form-field full">
+            <label for="ap-desc">Full Description</label>
+            <textarea id="ap-desc" required></textarea>
+          </div>
+          <div class="form-field">
+            <label for="ap-materials">Materials</label>
+            <input type="text" id="ap-materials" required placeholder="e.g. 18k solid gold">
+          </div>
+          <div class="form-field">
+            <label for="ap-occasions">Suitable Occasions</label>
+            <input type="text" id="ap-occasions" required placeholder="e.g. Weddings, parties">
+          </div>
+          <div class="form-field full">
+            <label for="ap-care">Care Instructions</label>
+            <textarea id="ap-care" required></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn--gold">Generate Code</button>
+      </form>
+
+      <div id="snippet-output" style="display:none; margin-top: var(--space-lg);">
+        <h3>Copy this into products-data.js</h3>
+        <pre class="code-block" id="snippet-code"></pre>
+        <button class="btn btn--outline btn--sm" id="copy-snippet-btn" style="margin-top: var(--space-sm);">Copy to Clipboard</button>
+      </div>
+    </section>
+
+    <!-- ===== EDITING GUIDE PANEL ===== -->
+    <section class="admin-panel" id="panel-guide" style="display:none;">
+      <div class="admin-topbar">
+        <div>
+          <h1 style="margin-bottom:0.2rem;">Editing Guide</h1>
+          <p style="margin:0; color:var(--text-muted);">Everything is edited by hand, in plain files — no database, no CMS.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-2">
+        <div class="service-card">
+          <h3>Add / Edit a Product</h3>
+          <p>Open <code>assets/js/products-data.js</code>. Every product is one JavaScript object inside the <code>PRODUCTS</code> array. Copy an existing one to add a product, or edit any field directly to update it — name, price, description, images, and so on.</p>
+        </div>
+        <div class="service-card">
+          <h3>Remove a Product</h3>
+          <p>Delete its whole <code>{ ... }</code> block (including the trailing comma) from the <code>PRODUCTS</code> array in the same file.</p>
+        </div>
+        <div class="service-card">
+          <h3>Mark Sold / Feature a Product</h3>
+          <p>Change <code>available: true</code> to <code>available: false</code>, or <code>featured</code> to <code>true</code> / <code>false</code>, on that product's entry.</p>
+        </div>
+        <div class="service-card">
+          <h3>Replace a Product Image</h3>
+          <p>Upload the new photo into <code>assets/images/products/</code>, then update the <code>image</code> and <code>gallery</code> fields to point at the new filename(s).</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top: var(--space-lg);">Example product entry</h3>
+      <pre class="code-block">{
+  id: 19,
+  name: "Heritage Gold Drop Earrings",
+  category: "WOKO",
+  price: 65000,
+  available: true,
+  featured: false,
+  image: "assets/images/products/product-19.jpg",
+  gallery: ["assets/images/products/product-19.jpg"],
+  shortDescription: "Delicate gold drop earrings finished by hand.",
+  description: "A longer paragraph describing the piece in full.",
+  materials: "18k solid gold",
+  occasions: "Everyday wear, gifting",
+  care: "Wipe clean after wear; store in a dry pouch."
+},</pre>
+
+      <div class="admin-callout" style="margin-top: var(--space-lg);">
+        <strong>No database, no CMS, no auto-sync — by design.</strong> Every jewelry piece Jeweltec sells is handcrafted and changes by hand, so the catalog is a plain, readable file you fully control. Changes take effect the moment you save the file and re-upload it to your web host.
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="assets/js/products-data.js"></script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/admin.js"></script>
+<script>
+  /* ---------------------------------------------------------------------
+     ADMIN PAGE BOOTSTRAP: login gate + panel switching
+     ------------------------------------------------------------------- */
+  const loginScreen = document.getElementById("admin-login-screen");
+  const dashboard = document.getElementById("admin-dashboard");
+
+  function showDashboard() {
+    loginScreen.style.display = "none";
+    dashboard.style.display = "grid";
+    renderAdminStats();
+    renderAdminProductTable();
+    document.getElementById("admin-product-tbody-preview").innerHTML =
+      document.getElementById("admin-product-tbody").innerHTML;
+    paintSankofaMarks();
+  }
+
+  if (isAdminLoggedIn()) {
+    showDashboard();
+  }
+
+  document.getElementById("admin-login-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const pw = document.getElementById("admin-password").value;
+    if (adminLogin(pw)) {
+      showDashboard();
+    } else {
+      document.getElementById("admin-login-error").textContent = "Incorrect password. Please try again.";
+      document.getElementById("admin-password").closest(".form-field").classList.add("has-error");
+    }
+  });
+
+  document.getElementById("admin-logout-link").addEventListener("click", (e) => {
+    e.preventDefault();
+    adminLogout();
+  });
+
+  // Sidebar panel switching
+  document.querySelectorAll("[data-panel-link]").forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = link.dataset.panelLink;
+      document.querySelectorAll(".admin-panel").forEach(p => p.style.display = "none");
+      document.getElementById(`panel-${target}`).style.display = "block";
+      document.querySelectorAll(".admin-nav a[data-panel-link]").forEach(a => a.classList.remove("is-active"));
+      document.querySelectorAll(`[data-panel-link="${target}"]`).forEach(a => a.classList.add("is-active"));
+    });
+  });
+
+  // Add-product form -> code snippet generator
+  document.getElementById("add-product-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = {
+      name: document.getElementById("ap-name").value,
+      category: document.getElementById("ap-category").value,
+      price: document.getElementById("ap-price").value,
+      image: document.getElementById("ap-image").value,
+      gallery: [document.getElementById("ap-image").value],
+      available: document.getElementById("ap-available").value,
+      featured: document.getElementById("ap-featured").value,
+      shortDescription: document.getElementById("ap-short").value,
+      description: document.getElementById("ap-desc").value,
+      materials: document.getElementById("ap-materials").value,
+      occasions: document.getElementById("ap-occasions").value,
+      care: document.getElementById("ap-care").value
+    };
+    const snippet = generateProductSnippet(formData);
+    document.getElementById("snippet-code").textContent = snippet;
+    document.getElementById("snippet-output").style.display = "block";
+    document.getElementById("snippet-output").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  document.getElementById("copy-snippet-btn").addEventListener("click", () => {
+    const text = document.getElementById("snippet-code").textContent;
+    navigator.clipboard.writeText(text).then(() => showToast("Snippet copied to clipboard"));
+  });
+</script>
+</body>
+</html>
